@@ -1,6 +1,5 @@
 exports.handler = async (event) => {
-    console.log(event.body);
-    const body = event.body;
+    const body = JSON.parse(event.body);
     try {
         console.log(`Deploying for commit ${body.commits[0].id}`);
     }catch (error){
