@@ -1,5 +1,6 @@
 const aws = require('../config/ConfigAWS');
 const axios = require('axios');
+const fs = require('fs');
 
 const getFunctions = async () => {
     let functions = [];
