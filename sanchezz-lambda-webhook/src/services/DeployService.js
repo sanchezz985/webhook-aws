@@ -47,7 +47,7 @@ const startDeploy = async (repoInfo, functions, fnMap) => {
 
     const arrayFunctions = functions.split(",");
     for (let i in arrayFunctions) {
-        let originUrlCode = await prepareLambdaCode(repoInfo, branch, arrayFunctions[i]);
+        let originUrlCode = await prepareLambdaCode(repoInfo, branch, arrayFunctions[i].trim());
         console.log("cloning ...");
     }
 
