@@ -22,6 +22,7 @@ exports.handler = async (event) => {
     }catch (error){
         console.log(`Error while deploying ${error}`);
     }
+    
     return {
         statusCode: 200,
         body: JSON.stringify('Hello from Lambda!'),

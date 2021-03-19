@@ -56,7 +56,6 @@ const startDeploy = async (repoInfo, functions, fnMap) => {
     }
 
     console.log(`=== DEPLOYING COMPLETE ====`);
-
 };
 
 const updateFunction = async(fn) => {
