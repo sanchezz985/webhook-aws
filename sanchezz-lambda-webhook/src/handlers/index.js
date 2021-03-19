@@ -1,4 +1,4 @@
-const aws = require('../config/ConfigAWS');
+const DeployService = require('../services/DeployService');
 
 exports.handler = async (event) => {
     const body = JSON.parse(event.body);
@@ -13,6 +13,8 @@ exports.handler = async (event) => {
         const message = getLineValue(commitMessage[2]);
 
         console.log(`\n Deploying info:  \n Functions to deploy: ${functions}\n Environments: ${environments} \n Message: ${message}`);
+
+        DeployService.getFunctions();
 
     }catch (error){
         console.log(`Error while deploying ${error}`);
