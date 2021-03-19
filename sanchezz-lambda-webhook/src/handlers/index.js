@@ -15,7 +15,6 @@ exports.handler = async (event) => {
         console.log(`\n Deploying info:  \n Functions to deploy: ${functions}\n Environments: ${environments} \n Message: ${message}`);
 
         let functionsMap = await DeployService.getFunctions();
-        console.log(functionsMap);
         DeployService.validateFunctions(functions, functionsMap);
         console.log("follow deploy ...")
 
