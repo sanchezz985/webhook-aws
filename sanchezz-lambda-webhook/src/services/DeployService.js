@@ -31,7 +31,7 @@ const validateFunctions = (functions, fnMap) => {
 };
 
 const startDeploy = async (repoInfo, functions, fnMap) => {
-    const branch = getBranch(repoInfo.ref); 
+    const branch = getBranch(repoInfo.ref);
     console.log(branch);
     const url = `${repoInfo.repository.url}/archive/${repoInfo.ref}.zip`
     console.log(`=== DOWNLOADING CODE FROM ${url} ====`);
