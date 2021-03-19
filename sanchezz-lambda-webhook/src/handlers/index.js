@@ -16,7 +16,7 @@ exports.handler = async (event) => {
 
         let functionsMap = await DeployService.getFunctions();
         DeployService.validateFunctions(functions, functionsMap);
-        console.log("follow deploy ...")
+        console.log("follow deploy ...");
 
     }catch (error){
         console.log(`Error while deploying ${error}`);
