@@ -47,10 +47,27 @@ const startDeploy = async (repoInfo, functions, fnMap) => {
 
     const arrayFunctions = functions.split(",");
     for (let i in arrayFunctions) {
-        let originUrlCode = await prepareLambdaCode(repoInfo, branch, arrayFunctions[i].trim());
-        console.log("cloning ...");
+        const fn = arrayFunctions[i].trim();
+        await prepareLambdaCode(repoInfo, branch, fn);
+        let updatedLambda = await updateFunction(fn);
+        if(!updatedLambda)
+            throw new Error(`Coundn't update function ${fn}`);
+        console.log(`Function ${fn} was updated successfully`);
     }
 
+    console.log(`=== DEPLOYING COMPLETE ====`);
+
+};
+
+const updateFunction = async(fn) => {
+    console.log(`=== UPDATING FUNCTION ${fn} ===`);
+    const lambda = new aws.AWSLambda();
+    let updatedLambda = await lambda.updateFunctionCode({
+        name: fn,
+        bucket: process.env.BUCKET,
+        key: `${fn}.zip`,
+    });
+    return updatedLambda;
 };
 
 const prepareLambdaCode = async (repoInfo, branch, fnName) => {
@@ -59,7 +76,7 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     
     // validate the existence of correct directories
     try {
-        fs.readdirSync(`${baseDir}/${fnName}/src`)
+        fs.readdirSync(`${baseDir}/${fnName}/src`);
         fs.readFileSync(`${baseDir}/${fnName}/package.json`);
     }catch (err) {
         throw new Error(`Incorrect file structure for function ${fnName}`);
