@@ -59,10 +59,10 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     
     // validate the existence of correct directories
     try {
-        fs.readFileSync(`${baseDir}/${fnName}/src`);
         console.log(`${baseDir}/${fnName}/src`);
-        fs.readFileSync(`${baseDir}/${fnName}/packages.json`);
         console.log(`${baseDir}/${fnName}/packages.json`);
+        fs.readFileSync(`${baseDir}/${fnName}/src`);
+        fs.readFileSync(`${baseDir}/${fnName}/packages.json`);
     }catch (err) {
         throw new Error(`Incorrect file structure for function ${fnName}`);
     }
@@ -100,6 +100,12 @@ const unzip = async (repoInfo, branch) => {
     try{
         let repoZip = new AdmZip(`${process.env.TMP_DIRECTORY}${repoInfo.repository.name}-${branch}.zip`);
         repoZip.extractAllTo(`${process.env.TMP_DIRECTORY}`, true);
+        
+        var zipEntries = repoZip.getEntries();
+        zipEntries.forEach(function(zipEntry) {
+            console.log(zipEntry.toString());            
+        });
+    
     }catch (err){
         throw new Error(`Problem while unzipping ::: ${err}`);
     }
