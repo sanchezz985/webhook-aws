@@ -5,7 +5,7 @@ exports.handler = async (event) => {
         if(!body.commits[0].message)
             throw new Error("Commit without correct template");
 
-        const commitMessage = body.commits[0].message.slit(";");
+        const commitMessage = body.commits[0].message.split(";");
         const functions = commitMessage[0];
         const environments = commitMessage[1];
         const message = commitMessage[2];
