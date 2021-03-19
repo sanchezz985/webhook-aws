@@ -15,7 +15,7 @@ const getFunctions = async () => {
         }
     } while (data.NextMarker);    
     if(functions.length > 0) {
-        fs.writeFileSync("lambda_functions.json", JSON.stringify(functions));
+        fs.writeFileSync("/tmp/lambda_functions.json", JSON.stringify(functions));
         console.log("File lambda_functions.json was created successfully");
     }
 };
