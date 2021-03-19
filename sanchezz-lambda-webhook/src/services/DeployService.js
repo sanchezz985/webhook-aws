@@ -29,6 +29,11 @@ const validateFunctions = (functions, fnMap) => {
     });
 };
 
+const startDeploy = async (functions, fnMap) => {
+    functions.split(",").forEach(fun => {
+        
+    });
+};
 
 module.exports = {
     getFunctions,
