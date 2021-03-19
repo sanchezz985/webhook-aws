@@ -24,7 +24,7 @@ const getFunctions = async () => {
 
 const validateFunctions = (functions, fnMap) => {
     functions.split(",").forEach(fn => {
-        if(fnMap.get(fn) === undefined)
+        if(fnMap.get(fn.trim()) === undefined)
             throw new Error(`Function ${fn} doesn't exist`);
     });
 };
