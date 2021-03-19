@@ -3,7 +3,7 @@ const aws = require('../config/ConfigAWS');
 const getFunctions = async () => {
     let functions = [];
     let data = {};
-    let functionsMap = new Map();
+    let fnMap = new Map();
     const lambda = new aws.AWSLambda();
     console.log("=== LISTING FUNCTIONS ===")
     do {
@@ -16,12 +16,21 @@ const getFunctions = async () => {
     } while (data.NextMarker);
     if(functions.length > 0) {
         functions.forEach(fn => {
-            functionsMap.set(fn.FunctionName, fn);
+            fnMap.set(fn.FunctionName, fn);
         });
     }
-    return functionsMap;
+    return fnMap;
 };
 
+const validateFunctions = (functions, fnMap) => {
+    functions.split(",").forEach(fn => {
+        if(fnMap.get(fn) === undefined)
+            throw new Error(`Function ${fn} doesn't exist`);
+    });
+};
+
+
 module.exports = {
-    getFunctions
+    getFunctions,
+    validateFunctions
 };
