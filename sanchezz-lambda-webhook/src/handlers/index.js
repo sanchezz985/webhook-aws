@@ -14,8 +14,9 @@ exports.handler = async (event) => {
 
         console.log(`\n Deploying info:  \n Functions to deploy: ${functions}\n Environments: ${environments} \n Message: ${message}`);
 
-        await DeployService.getFunctions();
-        
+        let functionsMap = await DeployService.getFunctions();
+        console.log(functionsMap);
+
     }catch (error){
         console.log(`Error while deploying ${error}`);
     }
