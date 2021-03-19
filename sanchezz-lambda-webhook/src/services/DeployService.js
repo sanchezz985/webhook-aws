@@ -59,9 +59,7 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     
     // validate the existence of correct directories
     try {
-        console.log(`${baseDir}/${fnName}/src`);
-        console.log(`${baseDir}/${fnName}/package.json`);
-        fs.readFileSync(`${baseDir}/${fnName}/src`);
+        fs.readdirSync(`${baseDir}/${fnName}/src`)
         fs.readFileSync(`${baseDir}/${fnName}/package.json`);
     }catch (err) {
         throw new Error(`Incorrect file structure for function ${fnName}`);
