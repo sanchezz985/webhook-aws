@@ -37,5 +37,6 @@ const startDeploy = async (functions, fnMap) => {
 
 module.exports = {
     getFunctions,
-    validateFunctions
+    validateFunctions,
+    startDeploy
 };

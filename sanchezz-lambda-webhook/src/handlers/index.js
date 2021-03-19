@@ -2,6 +2,7 @@ const DeployService = require('../services/DeployService');
 
 exports.handler = async (event) => {
     const body = JSON.parse(event.body);
+    console.log(JSON.stringify(body));
     try {
         console.log(`=== Deploying for commit ${body.commits[0].id} ===`);
         if(!body.commits[0].message)
