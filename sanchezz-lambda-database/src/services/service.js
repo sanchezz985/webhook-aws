@@ -1,1 +1,3 @@
-console.log("fghjk");
+const DevMethod = () => {
+    console.log("DEV");
+}

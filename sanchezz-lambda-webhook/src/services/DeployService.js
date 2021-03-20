@@ -2,6 +2,7 @@ const aws = require('../config/ConfigAWS');
 const axios = require('axios');
 const fs = require('fs');
 const AdmZip = require('adm-zip');
+const FunctionsConfig = require('../config/FunctionsConfig');
 
 const getFunctions = async () => {
     let functions = [];
@@ -58,13 +59,13 @@ const startDeploy = async (repoInfo, functions, fnMap) => {
     console.log(`=== DEPLOYING COMPLETE ====`);
 };
 
-const updateFunction = async(fn) => {
+const updateFunction = async(fn, branch) => {
     console.log(`=== UPDATING FUNCTION ${fn} ===`);
     const lambda = new aws.AWSLambda();
     let updatedLambda = await lambda.updateFunctionCode({
         name: fn,
         bucket: process.env.BUCKET,
-        key: `${fn}.zip`,
+        key: `${fn}-${branch}.zip`,
     });
     return updatedLambda;
 };
@@ -72,19 +73,20 @@ const updateFunction = async(fn) => {
 const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     const lambdaZip = new AdmZip();
     const baseDir = `${process.env.TMP_DIRECTORY}${repoInfo.repository.name}-${branch}`;
-    
+    const fnDir = `${baseDir}/${findDir(fnName)}`;
+
     // validate the existence of correct directories
     try {
-        fs.readdirSync(`${baseDir}/${fnName}/src`);
-        fs.readFileSync(`${baseDir}/${fnName}/package.json`);
+        fs.readdirSync(`${fnDir}/src`);
+        fs.readFileSync(`${fnDir}/package.json`);
     }catch (err) {
         throw new Error(`Incorrect file structure for function ${fnName}`);
     }
 
     try{
-        lambdaZip.addLocalFolder(`${baseDir}/${fnName}/src`, "/src");
-        lambdaZip.addLocalFile(`${baseDir}/${fnName}/package.json`);
-        lambdaZip.writeZip(`${process.env.TMP_DIRECTORY}/${fnName}.zip`);
+        lambdaZip.addLocalFolder(`${fnDir}/src`, "/src");
+        lambdaZip.addLocalFile(`${fnDir}/package.json`);
+        lambdaZip.writeZip(`${process.env.TMP_DIRECTORY}/${fnName}-${branch}.zip`);
     }catch (err) {
         throw new Error(`Error while zipping code for function ${fnName}`);
     }
@@ -92,6 +94,20 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     const lambdaContent = fs.readFileSync(`${process.env.TMP_DIRECTORY}/${fnName}.zip`);
     return await uploadFile(lambdaContent, fnName);
 
+};
+
+const findDir = (branch, fnName) => {
+    const functions = FunctionsConfig[branch];
+    const dir = "";
+    for(let i in functions) {
+        if(functions[i].fnName == fnName) {
+            dir = functions[i].projectDir;
+            break;
+        }
+    }
+    if(dir === "")
+        throw new Error(`Couldn't find the correct directory for ${fnName}`);
+    return dir;
 };
 
 const uploadFile = async (content, name) => {
