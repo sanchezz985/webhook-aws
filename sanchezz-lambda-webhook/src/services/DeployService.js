@@ -93,7 +93,6 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
 
     const lambdaContent = fs.readFileSync(`${process.env.TMP_DIRECTORY}/${fnName}.zip`);
     return await uploadFile(lambdaContent, fnName);
-
 };
 
 const findDir = (branch, fnName) => {
