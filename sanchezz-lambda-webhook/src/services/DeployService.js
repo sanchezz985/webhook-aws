@@ -50,7 +50,7 @@ const startDeploy = async (repoInfo, functions, fnMap) => {
     for (let i in arrayFunctions) {
         const fn = arrayFunctions[i].trim();
         await prepareLambdaCode(repoInfo, branch, fn);
-        let updatedLambda = await updateFunction(fn);
+        let updatedLambda = await updateFunction(fn, branch);
         if(!updatedLambda)
             throw new Error(`Coundn't update function ${fn}`);
         console.log(`Function ${fn} was updated successfully`);
@@ -74,6 +74,7 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     const lambdaZip = new AdmZip();
     const baseDir = `${process.env.TMP_DIRECTORY}${repoInfo.repository.name}-${branch}`;
     const fnDir = `${baseDir}/${findDir(branch,fnName)}`;
+    const resource = `${fnName}-${branch}`;
 
     // validate the existence of correct directories
     try {
@@ -86,13 +87,13 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     try{
         lambdaZip.addLocalFolder(`${fnDir}/src`, "/src");
         lambdaZip.addLocalFile(`${fnDir}/package.json`);
-        lambdaZip.writeZip(`${process.env.TMP_DIRECTORY}/${fnName}-${branch}.zip`);
+        lambdaZip.writeZip(`${process.env.TMP_DIRECTORY}${resource}.zip`);
     }catch (err) {
         throw new Error(`Error while zipping code for function ${fnName}`);
     }
 
-    const lambdaContent = fs.readFileSync(`${process.env.TMP_DIRECTORY}/${fnName}.zip`);
-    return await uploadFile(lambdaContent, fnName);
+    const lambdaContent = fs.readFileSync(`${process.env.TMP_DIRECTORY}${resource}.zip`);
+    return await uploadFile(lambdaContent, `${resource}`);
 };
 
 const findDir = (branch, fnName) => {
