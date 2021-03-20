@@ -98,7 +98,7 @@ const prepareLambdaCode = async (repoInfo, branch, fnName) => {
 
 const findDir = (branch, fnName) => {
     const functions = FunctionsConfig[branch];
-    const dir = "";
+    let dir = "";
     for(let i in functions) {
         if(functions[i].fnName == fnName) {
             dir = functions[i].projectDir;
