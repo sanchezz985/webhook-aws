@@ -73,7 +73,7 @@ const updateFunction = async(fn, branch) => {
 const prepareLambdaCode = async (repoInfo, branch, fnName) => {
     const lambdaZip = new AdmZip();
     const baseDir = `${process.env.TMP_DIRECTORY}${repoInfo.repository.name}-${branch}`;
-    const fnDir = `${baseDir}/${findDir(fnName)}`;
+    const fnDir = `${baseDir}/${findDir(branch,fnName)}`;
 
     // validate the existence of correct directories
     try {
