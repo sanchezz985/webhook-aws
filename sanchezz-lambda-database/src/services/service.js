@@ -1,5 +1,5 @@
 const DevMethod = () => {
-    console.log("DEVELOP :O");
+    console.log("DEVELOP");
 };
 
 const QAMethod = () => {
