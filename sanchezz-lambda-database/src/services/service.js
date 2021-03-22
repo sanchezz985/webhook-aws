@@ -5,6 +5,7 @@ const DevMethod = () => {
     // new changes 4
     // new changes 5
     // new changes 6
+    // new change 7
     console.log("DEVELOP");
 };
 
