@@ -1,3 +1,6 @@
+/**
+ * Develop
+ */
 const DevMethod = () => {
     console.log("DEVELOP");
 };
