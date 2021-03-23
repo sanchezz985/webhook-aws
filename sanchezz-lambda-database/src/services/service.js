@@ -1,5 +1,5 @@
 /**
- * Develop
+ * Develop function
  */
 const DevMethod = () => {
     console.log("DEVELOP");
