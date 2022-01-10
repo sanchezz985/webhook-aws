@@ -6,7 +6,6 @@ const DevMethod = () => {
     console.log("DEVELOP");
     console.log("DEVELOP");
     console.log("DEVELOP");
-    console.log("DEVELOP 2 ...");
 };
 
 /**

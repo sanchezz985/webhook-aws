@@ -15,5 +15,5 @@ Resources:
       CodeUri: ../lambda-webhook/
       Environment:
         Variables:
-          TMP_DIRECTORY: /deploy
+          TMP_DIRECTORY: /tmp/
           BUCKET: s3adsbcktfilemedia

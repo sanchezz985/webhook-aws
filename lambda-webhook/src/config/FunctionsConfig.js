@@ -5,12 +5,12 @@ module.exports = {
     }],
     qa:[
         {
-            fnName: "I20-012ADS-TEST-DEPLOY-DEV",
+            fnName: "I20-012ADS-TEST-DEPLOY-QA",
             projectDir: "/lambda-database" 
         }
     ],
     main:[{
-        fnName: "I20-012ADS-TEST-DEPLOY-DEV",
+        fnName: "I20-012ADS-TEST-DEPLOY-PRD",
         projectDir: "/lambda-database" 
     }]
 };
