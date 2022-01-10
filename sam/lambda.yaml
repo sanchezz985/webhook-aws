@@ -2,7 +2,7 @@ Globals:
   Function:
     Runtime: nodejs12.x
     Timeout: 30
-    Handler: src/handlers/index.handler
+    Handler: src/handlers/index.handler_service
     Environment:
       Variables:
         KEY: value #example
