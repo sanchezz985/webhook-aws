@@ -1,0 +1,19 @@
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 30
+    Handler: src/handlers/index.handler
+    Environment:
+      Variables:
+        KEY: value #example
+
+Resources:
+  
+  WEBHOOK:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../lambda-webhook/
+      Environment:
+        Variables:
+          TMP_DIRECTORY: /deploy
+          BUCKET: s3adsbcktfilemedia

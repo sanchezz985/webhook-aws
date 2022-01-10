@@ -1,0 +1,13 @@
+{
+    "name": "sam",
+    "version": "0.0.1",
+    "description": "Proyecto para probar de manera local las funciones lambda",
+    "private": true,
+    "author": "Emmanuel Sánchez Luna",
+    "dependencies": {},
+    "config": {},
+    "devDependencies": {},
+    "scripts": {
+        "lambda": "sam local invoke -t ./lambda.yaml -e ./event.json WEBHOOK"
+    }
+}

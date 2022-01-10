@@ -1,14 +1,17 @@
 const DeployService = require('../services/DeployService');
 
-exports.handler = async (event) => {
+exports.handler_service = async (event) => {
     const body = JSON.parse(event.body);
-    console.log(JSON.stringify(body));
+    //console.log(JSON.stringify(body));
     try {
         console.log(`=== Deploying for commit ${body.head_commit.id} ===`);
         if(!body.head_commit.message)
             throw new Error("Commit without correct template");
 
         const commitMessage = body.head_commit.message.trim().split(";");
+        console.log(commitMessage[0]);
+        console.log(commitMessage[1]);
+        console.log(commitMessage[2]);
         const functions = getLineValue(commitMessage[0]);
         const environments = getLineValue(commitMessage[1]);
         const message = getLineValue(commitMessage[2]);
@@ -22,6 +25,7 @@ exports.handler = async (event) => {
     }catch (error){
         console.log(`Error while deploying ${error}`);
     }
+
     return {
         statusCode: 200,
         body: JSON.stringify('Hello from Lambda!'),
