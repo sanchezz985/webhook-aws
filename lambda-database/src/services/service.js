@@ -2,10 +2,7 @@
  * Develop function
  */
 const DevMethod = () => {
-    console.log("DEVELOP");
-    console.log("DEVELOP");
-    console.log("DEVELOP");
-    console.log("DEVELOP");
+    console.log("TEST");
 };
 
 /**
