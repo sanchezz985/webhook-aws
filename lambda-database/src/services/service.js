@@ -10,4 +10,5 @@ const DevMethod = () => {
  */
 const QAMethod = () => {
     console.log("QA");
+    console.log("QA");console.log("QA");console.log("QA");console.log("QA");console.log("QA");console.log("QA");
 };
